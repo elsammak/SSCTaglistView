@@ -18,6 +18,7 @@ class TagCollectionCell: UICollectionViewCell {
     @IBOutlet var viewTag: UIView!
     @IBOutlet var btnRemoveTag: CloseButton!
     
+    @IBOutlet weak var removeButtonWidthConstraint: NSLayoutConstraint!
     // Variables
     var objTagName : String!
     var isCellSelected : Bool!
@@ -61,9 +62,10 @@ class TagCollectionCell: UICollectionViewCell {
 
         self.lblTag.text = objTagName
         if(Theme.shared.isDeleteEnabled == false) {
-            self.btnRemoveTag.removeFromSuperview()
+            removeButtonWidthConstraint.constant = 0
         }
         if(Theme.shared.isDeleteEnabled == true) {
+            removeButtonWidthConstraint.constant = 42
             if(self.isCellSelected == true) {
                 self.viewTag.backgroundColor = Theme.shared.selectionColor
                 self.lblTag.textColor = Theme.shared.selectionTagTextColor

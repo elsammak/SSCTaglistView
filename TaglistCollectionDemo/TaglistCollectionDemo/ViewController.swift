@@ -56,9 +56,11 @@ class ViewController: UIViewController {
     }
 
     @IBAction func copySelectedAction(_ sender: UIButton) {
-        self.aryCopyTags.removeAll()
-        self.aryCopyTags = self.tagListView.copySelectedTags()
-        self.tbllist.reloadData()
+        tagListView.isDeleteEnabled = !tagListView.isDeleteEnabled
+        tagListView.collectionView.reloadData()
+//        self.aryCopyTags.removeAll()
+//        self.aryCopyTags = self.tagListView.copySelectedTags()
+//        self.tbllist.reloadData()
         
     }
     @IBAction func copyUnselectedAction(_ sender: UIButton) {
@@ -81,7 +83,7 @@ class ViewController: UIViewController {
 
 extension ViewController : TagViewDelegate {
     func didRemoveTag(_ indexPath: IndexPath) {
-        print("RemoveIndexPath==\(indexPath)")
+        print("RemoveIndexPath==\(indexPath)")        
     }
     
     func didTaponTag(_ indexPath: IndexPath) {

@@ -229,14 +229,14 @@ protocol TagViewDelegate: class {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         // 2 - setup flowlayout
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        let layout: CustomViewFlowLayout = CustomViewFlowLayout()
         layout.minimumLineSpacing = self.tagSpacing
         layout.minimumInteritemSpacing = self.tagSpacing
         layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         
         // 3 - set collectionview layout
-        let frame = CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 70.0)
+        let frame = CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 200.0)
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = scrollIndicator
@@ -258,7 +258,7 @@ protocol TagViewDelegate: class {
         let topConstrain = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: collectionView, attribute: .top, multiplier: 1, constant: 0)
         let leftConstrain = NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: collectionView, attribute: .leading, multiplier: 1, constant: 0)
         let rightConstrain = NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: collectionView, attribute: .trailing, multiplier: 1, constant: 0)
-        let heightConstraint = NSLayoutConstraint(item: collectionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50.0)
+        let heightConstraint = NSLayoutConstraint(item: collectionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200.0)
         self.addConstraints([topConstrain, heightConstraint, leftConstrain,rightConstrain])
         
         
@@ -317,7 +317,7 @@ protocol TagViewDelegate: class {
         if index < self.tagNames.count {
             self.tagNames.remove(at: index)
         }
-        if self.selectedTagAck.count < index {
+        if index < self.selectedTagAck.count {
             self.selectedTagAck.remove(at: index)
         }
         self.collectionView.collectionViewLayout.invalidateLayout()
@@ -419,6 +419,26 @@ extension TaglistCollection : UICollectionViewDataSource ,UICollectionViewDelega
         }
         self.collectionView.reloadData()
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
+    }
+    
+    
+    
+    
 }
 
 //MARK: - tag list delegate -
